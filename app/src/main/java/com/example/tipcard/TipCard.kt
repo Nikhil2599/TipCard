@@ -8,6 +8,8 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -20,9 +22,8 @@ import com.example.tipcard.R
 import androidx.compose.material.Icon as Icon1
 import androidx.compose.ui.platform.LocalContext
 
-
+val cardVisible = mutableStateOf(true)
 @Composable
-
 fun TipCard() {
 
 
@@ -30,8 +31,8 @@ fun TipCard() {
 
     val whiteColor = Color.White
 
-    var cardVisible = true
-    if (cardVisible) {
+
+    if (cardVisible.value) {
 
 
     Card(backgroundColor = Color(0xFF263238),modifier = Modifier
@@ -85,8 +86,7 @@ fun TipCard() {
 
 @Composable
 fun CrossIcon(modifier: Modifier = Modifier, onClick: () -> Unit) {
-    val activity = (LocalContext.current as? Activity)
-    IconButton(onClick =  { activity?.finish() }) {
+    IconButton(onClick = {cardVisible.value = false}) {
         Icon1(imageVector = Icons.Filled.Close,
             contentDescription ="" ,
             tint = Color.White,
